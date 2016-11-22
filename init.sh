@@ -6,8 +6,8 @@
 # prereq - https://confluence.puppetlabs.com/pages/viewpage.action?pageId=28610683
 
 
-$master = floaty get centos-7-x86_64
-$cisco = floaty get cisco-nxos-9k-x86_64
-$arista = floaty get arista-4-i386
+master=$(floaty get centos-7-x86_64)
+#cisco=$(floaty get cisco-nxos-9k-x86_64)
+#arista=$(floaty get arista-4-i386)
 
-
+echo "The Master is: $master"
