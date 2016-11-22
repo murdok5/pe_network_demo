@@ -1,15 +1,13 @@
  #!/bin/bash
 set -ex
-hostname=$(hostname -f)
-pe_url=$(http://pe-releases.puppetlabs.net/2016.4.0/puppet-enterprise-2016.4.0-el-7-x86_64.tar.gz)
+pe_url="http://pe-releases.puppetlabs.net/2016.4.0/puppet-enterprise-2016.4.0-el-7-x86_64.tar.gz"
 yum install vim -y
 systemctl disable firewalld
 systemctl stop firewalld
-echo 127.0.0.1 $(hostname) >> /etc/hosts
+echo 127.0.0.1 $(hostname -f) >> /etc/hosts
 mkdir -p /etc/puppetlabs/puppet
 echo '*' > /etc/puppetlabs/puppet/autosign.conf
-retrycurl() { set +e; while :; do curl "$@"; [ "$?" = 0 ] && break; done; set -e; }
-retrycurl --max-time 30 -o pe.archive $pe_url
+curl -o pe.archive $pe_url
 tar -xf pe.archive
 cat > pe.conf <<-EOF
 {
