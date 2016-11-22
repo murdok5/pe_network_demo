@@ -9,12 +9,11 @@ mkdir -p /etc/puppetlabs/puppet
 echo '*' > /etc/puppetlabs/puppet/autosign.conf
 curl -o pe.archive $pe_url
 tar -xf pe.archive
-cat > pe.conf <<-EOF
+cat > pe.conf <<EOL
 {
   "console_admin_password": "puppetlabs"
-  "puppet_enterprise::puppet_master_host": "%{::trusted.certname}"
-  "puppet_enterprise::use_application_services": true
+  "puppet_enterprise::puppet_master_host": ${hostname -f}"
   "puppet_enterprise::profile::master::check_for_updates": false
 }
-EOF 
+EOL 
 ./puppet-enterprise-*-el-7-x86_64/puppet-enterprise-installer -c pe.conf
