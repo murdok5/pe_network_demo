@@ -18,3 +18,9 @@ cat > pe.conf << EOF
 }
 EOF
 ./puppet-enterprise-*-el-7-x86_64/puppet-enterprise-installer -c pe.conf
+puppet module install puppetlabs-ciscopuppet
+puppet module install aristanetworks-netdev_stdlib_eos
+puppet module install aristanetworks-eos --version 1.4.0
+puppet apply -e "package { 'rbeapi': ensure=>'installed',provider=>'puppet_gem',}"
+puppet agent -t
+
